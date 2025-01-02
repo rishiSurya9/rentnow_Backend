@@ -13,10 +13,18 @@ const allowedOrigins = [
     'https://rentnow-indol.vercel.app', // Deployed frontend
   ];
   app.use(cors({
-    origin: ['http://localhost:3000', 'https://rentnow-indol.vercel.app/signup','https://rentnow-indol.vercel.app'], // Add your actual frontend URLs here
+    origin: ['http://localhost:3000', 'https://rentnow-indol.vercel.app'], // Add your actual frontend URLs here
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   }));
+  app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://rentnow-indol.vercel.app'); // Allow specific frontend origin
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow the necessary methods
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow necessary headers
+    res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials
+    next();
+  });
+  
 mongoose.connect(process.env.MONGO).then(()=>{
     console.log('Connected to MongoDB');
 }).catch((err)=>{
