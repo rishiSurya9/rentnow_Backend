@@ -7,7 +7,7 @@ import cors from 'cors';
 dotenv.config();
 
 const app = express();
-const port =  3001;
+const port =  process.env.PORT ;
 const allowedOrigins = [
     'http://localhost:3000',              // Local frontend
     'https://rentnow-indol.vercel.app', // Deployed frontend
