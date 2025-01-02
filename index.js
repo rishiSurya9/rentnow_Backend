@@ -10,18 +10,12 @@ const app = express();
 const port =  3001;
 const allowedOrigins = [
     'http://localhost:3000',              // Local frontend
-    'https://rentnow-indol.vercel.app/', // Deployed frontend
+    'https://rentnow-indol.vercel.app', // Deployed frontend
   ];
   app.use(cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true); // Allow the request
-      } else {
-        callback(new Error('Not allowed by CORS')); // Block the request
-      }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-    credentials: true, // Allow credentials like cookies
+    origin: ['http://localhost:3000', 'https://rentnow-indol.vercel.app/signup','https://rentnow-indol.vercel.app'], // Add your actual frontend URLs here
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
   }));
 mongoose.connect(process.env.MONGO).then(()=>{
     console.log('Connected to MongoDB');
