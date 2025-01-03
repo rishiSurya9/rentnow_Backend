@@ -31,7 +31,7 @@ export const  login  = async (req,res,next) => {
         res.cookie('access_token',token, { httpOnly: true,
           secure: true,
           sameSite: 'none',
-          domain: 'your-backend-domain.com',}).status(200).json(rest);
+          domain: 'https://rentnow-backend.onrender.com',}).status(200).json(rest);
 
     }catch(err){
         next(err);
