@@ -18,16 +18,16 @@
 export const  login  = async (req,res,next) => {
     const {email , password} = (req.body);
     try{
-        const user = await User.findOne({email});
-        if(!user){
+        const valid_user = await User.findOne({email});
+        if(!valid_user){
             return next(errorHandler(404,"user not found"));
         }
-        const isMatch = await bcrypt.compare(password,user.password);
+        const isMatch = await bcrypt.compare(password,valid_user.password);
         if(!isMatch){
             return next(errorHandler(401,"invalid credentials"));
         }
-        const token = jwt.sign({id:user._id},process.env.JWT_SECRET);
-        res.cookie('access_token',token, { httponly:true}).status(200).json(user);
+        const token = jwt.sign({id:valid_user._id},process.env.JWT_SECRET);
+        res.cookie('access_token',token, { httponly:true}).status(200).json(valid_user);
 
     }catch(err){
         next(err);
