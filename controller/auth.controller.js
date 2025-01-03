@@ -28,7 +28,10 @@ export const  login  = async (req,res,next) => {
         }
         const token = jwt.sign({id:valid_user._id},process.env.JWT_SECRET);
         const {password: pass, ...rest}= valid_user._doc;
-        res.cookie('access_token',token, { httponly:true}).status(200).json(rest);
+        res.cookie('access_token',token, { httpOnly: true,
+          secure: true,
+          sameSite: 'none',
+          domain: 'your-backend-domain.com',}).status(200).json(rest);
 
     }catch(err){
         next(err);
