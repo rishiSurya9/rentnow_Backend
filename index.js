@@ -7,7 +7,7 @@ import cors from 'cors';
 dotenv.config();
 
 const app = express();
-const port =  process.env.PORT ;
+const port =  process.env.PORT || 5000;
 const allowedOrigins = [
     'http://localhost:3000',              // Local frontend
     'https://rentnow-indol.vercel.app', // Deployed frontend
@@ -30,7 +30,8 @@ mongoose.connect(process.env.MONGO).then(()=>{
 }).catch((err)=>{
     console.log(err);
 });
-    ;
+    
+//mongodb://localhost:27017/
 app.listen(port,()=>{
     console.log(`Server is running on port ${port} !!!`);
 })
