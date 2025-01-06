@@ -1,3 +1,10 @@
-export default  (req,res)=>{
-    res.send('Hello worlds!');
-} 
+export const test = (req, res) => {
+    res.json({
+        messsage:'Api route is working ',
+    })
+}
+
+
+export const updateUser = (req, res, next) => {
+
+}
