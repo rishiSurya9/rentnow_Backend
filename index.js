@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import authRouter from './routes/auth.route.js';
 import cors from 'cors';
 
+import cookieParser from 'cookie-parser';
+
 dotenv.config();
 
 const app = express();
@@ -36,7 +38,7 @@ app.listen(port,()=>{
 })
 
 app.use(express.json());
-
+app.use(cookieParser);
 app.use('/api/auth',authRouter);
 app.use((err,req,res,next)=>{
     const statusCode = err.statusCode || 500;

@@ -1,3 +1,6 @@
+import { errorHandler } from "../utils/error"
+import bcrypt from 'bcrypt'
+
 export const test = (req, res) => {
     res.json({
         messsage:'Api route is working ',
@@ -5,6 +8,29 @@ export const test = (req, res) => {
 }
 
 
-export const updateUser = (req, res, next) => {
+export const updateUser = async(req, res, next) => {
+    if(req.user.id !== req.params.id || req.user.isAdmin){
+        return next (errorHandler(401,'You can only update your own account'))
+    }
 
+    try {
+        if(req.body.password){
+            req.body.password = await bcryptjs.hashSync(req.body.password, 10)
+        }
+
+        const updateUser= await User.findIdAndUpdate(req.params.id, {
+            $set:{
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password,
+
+            }
+
+        },{new: true})
+
+        const {password, ...rest}= updateUser._doc;
+        res.status(200).json(rest)
+    } catch (error) {
+        next(error)
+    }
 }
