@@ -1,5 +1,5 @@
 import { errorHandler } from "../utils/error"
-import bcrypt from 'bcrypt'
+import bcryptjs from 'bcryptjs';
 
 export const test = (req, res) => {
     res.json({
@@ -8,14 +8,14 @@ export const test = (req, res) => {
 }
 
 
-export const updateUser = async(req, res, next) => {
+export const updateUser = async (req, res, next) => {
     if(req.user.id !== req.params.id || req.user.isAdmin){
         return next (errorHandler(401,'You can only update your own account'))
     }
 
     try {
         if(req.body.password){
-            req.body.password = await bcryptjs.hashSync(req.body.password, 10)
+            req.body.password =  bcryptjs.hashSync(req.body.password, 10)
         }
 
         const updateUser= await User.findIdAndUpdate(req.params.id, {
