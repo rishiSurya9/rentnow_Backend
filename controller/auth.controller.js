@@ -30,7 +30,6 @@ export const  login  = async (req,res,next) => {
         const {password: pass, ...rest}= valid_user._doc;
         res.cookie('access_token', token, {
             secure: true, 
-            httpOnly: true, 
             sameSite: 'none', 
             domain: 'rentnow-backend.onrender.com',}).status(200).json(rest);
 
