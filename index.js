@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 
 const app = express();
-const port =  process.env.PORT || 5000;
+const port =  process.env.PORT || 3000;
 const allowedOrigins = [
     'http://localhost:3000',              // Local frontend
     'https://rentnow-indol.vercel.app', // Deployed frontend
