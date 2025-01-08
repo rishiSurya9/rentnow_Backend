@@ -29,7 +29,7 @@ export const  login  = async (req,res,next) => {
         const token = jwt.sign({id:valid_user._id},process.env.JWT_SECRET);
         const {password: pass, ...rest}= valid_user._doc;
         res.cookie('access_token', token, {
-            secure: true, 
+            secure:  process.env.NODE_ENV === 'production', 
             httponly: true,
             sameSite: 'none', 
             domain: 'rentnow-backend.onrender.com',}).status(200).json(rest);
