@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import authRouter from './controller/auth.controller.js';
+import { signup , login } from '../controller/auth.controller.js';
 import cors from 'cors';
 
 import cookieParser from 'cookie-parser';
