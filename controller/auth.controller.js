@@ -15,6 +15,7 @@
    }
   
 }
+
 export const  login  = async (req,res,next) => {
     const {email , password} = (req.body);
     try{
@@ -38,3 +39,25 @@ export const  login  = async (req,res,next) => {
         next(err);
     }
 }
+
+export const  update  = async (req,res,next) => {
+    const {email , oldPassword , newPassword} = (req.body);
+    try{
+        const valid_user = await User.findOne({email});
+        if(!valid_user){
+            return next(errorHandler(404,"user not found"));
+        }
+        const isMatch = await bcrypt.compare(oldPassword,valid_user.password);
+        if(!isMatch){
+            return next(errorHandler(401,"invalid credentials"));
+        }
+        const hashPsw = bcrypt.hashSync(newPassword,10);
+        valid_user.password = hashPsw;
+        await valid_user.save();
+        res.status(200).json("password updated successfully");
+    }catch(err){
+        next(err);
+    }
+}
+  
+
