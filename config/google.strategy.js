@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import User from "../models/user.model";
 import generateToken from "../utils/generateToken";
 
+
 export default new GoogleStrategy(
   {
     clientID: process.env.GOOGLE_CLIENT_ID,
