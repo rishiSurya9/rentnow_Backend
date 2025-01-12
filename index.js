@@ -4,6 +4,12 @@ import dotenv from 'dotenv';
 import authRouter from './routes/auth.route.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import setTokenCookie from './utils/verifyUser.js'
+import { config } from './config/google.strategy.js';
+import passport from 'passport';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import error from './utils/error.js'
+
 
 dotenv.config();
 
@@ -46,7 +52,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // API routes
-app.use('/api/auth', authRouter);
+app.use('/api/auth', authRouter); 
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -58,6 +64,17 @@ app.use((err, req, res, next) => {
         message,
     });
 });
+
+app.get('/google');
+app.get('/auth/google/callback', passport.authenticate('google',{session:false, failureRedirect:'/login'}),(req,res)=>{
+
+    const {user, accessToken, refreshToken, AccessTokenExp, refreshTokenExp} = req.user
+
+    setTokenCookie(res,accessToken,refreshToken,AccessTokenExp,refreshTokenExp)
+
+    //successful authentication redirect home 
+    res.redirect('/')
+})
 
 // Start the server and bind to 0.0.0.0
 app.listen(port, '0.0.0.0', () => {
