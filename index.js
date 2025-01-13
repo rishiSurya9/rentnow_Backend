@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 // Allowed origins for CORS
 const allowedOrigins = [
     'http://localhost:3000',              // Local frontend
-       // Deployed frontend
+    'https://rentnow-indol.vercel.app',   // Deployed frontend
 ];
 
 // Configure CORS
@@ -25,7 +25,7 @@ app.use(cors({
 
 // Set custom CORS headers
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3000'); // Allow specific frontend origin
+    res.setHeader('Access-Control-Allow-Origin', 'allowOrigins'); // Allow specific frontend origin
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow necessary methods
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow necessary headers
     res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials
