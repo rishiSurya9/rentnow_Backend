@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import authRouter from './routes/auth.route.js';
+import userRouter from './routes/user.route.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
@@ -47,6 +48,7 @@ app.use(cookieParser());
 
 // API routes
 app.use('/api/auth', authRouter);
+app.use('/api/users', userRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
