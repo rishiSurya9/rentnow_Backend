@@ -60,6 +60,6 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server and bind to 0.0.0.0
-app.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running on http://0.0.0.0:${port} !!!`);
+app.listen(5000, () => {
+    console.log(`Server is running on${port} !!!`);
 });
