@@ -86,6 +86,7 @@ export const google = async (req,res,next) => {
                 domain: 'rentnow-backend.onrender.com'}).status(200).json(rest);        
 
         }
+        console.log(token);
     }
     catch(error){
         next(error);
