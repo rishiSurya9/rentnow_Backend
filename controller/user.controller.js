@@ -1,4 +1,4 @@
-import { errorHandler } from "../utils/error"
+import { errorHandler } from "../utils/error.js"
 import bcryptjs from 'bcryptjs';
 import User from "../models/user.model.js";
 
@@ -10,7 +10,7 @@ export const test = (req, res) => {
 
 
 export const updateUser = async (req, res, next) => {
-    
+
     if(req.user.id !== req.params.id || req.user.isAdmin){
         return next (errorHandler(401,'You can only update your own account'))
     }

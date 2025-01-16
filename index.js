@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import authRouter from './routes/auth.route.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import userRouter from './routes/user.route.js';
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ app.use(cookieParser());
 
 // API routes
 app.use('/api/auth', authRouter);
+app.use('/api/users', userRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
