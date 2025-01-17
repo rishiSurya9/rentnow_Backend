@@ -47,8 +47,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 // API routes
-app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
+app.use('/api/auth', authRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
