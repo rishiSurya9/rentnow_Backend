@@ -28,7 +28,7 @@ const listingSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    furnihed:{
+    furnished:{
         type: Boolean,
         required: true,
     },
