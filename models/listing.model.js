@@ -50,7 +50,7 @@ const listingSchema = mongoose.Schema({
     },
     useRef:{
         type:String,
-        required: true,
+        default:"hi"
     }
     
    
