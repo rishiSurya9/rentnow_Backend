@@ -7,7 +7,7 @@ import { verifyToken } from "../utils/verifyUser.js";
 router.get('/test',test);
 router.post('/update/:id', verifyToken, updateUser)
 router.delete('/delete/:id', verifyToken, DeleteUser)
-rotuter.get('/listing/:id', verifyToken, getUserListing)
+router.get('/listing/:id', verifyToken, getUserListing)
 
 
 export default router;
