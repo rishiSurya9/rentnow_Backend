@@ -1,6 +1,7 @@
 import { errorHandler } from "../utils/error.js"
 import bcryptjs from 'bcryptjs';
 import User from "../models/user.model.js";
+import Listing from "../models/listing.model.js";
 
 export const test = (req, res) => {
     res.json({
@@ -51,3 +52,11 @@ export const DeleteUser = async (req, res, next) =>     {
         next(error)
     }
 }
+export const getUserListing = async (req, res, next) => {
+    try {
+        const userListing = await Listing.find({userRef:req.user.id})
+        res.status(200).json(userListing)
+    } catch (error) {
+        next(error)
+    }
+}  
