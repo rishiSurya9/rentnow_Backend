@@ -53,9 +53,6 @@ export const DeleteUser = async (req, res, next) =>     {
     }
 }
 export const getUserListing = async (req, res, next) => {
-    console.log(req.params.id);
-    
-    if(req.user.id === req.params.id ){
     try {
         const userListing = await Listing.find({userRef:req.user.id})
         res.status(200).json(userListing)
@@ -63,7 +60,5 @@ export const getUserListing = async (req, res, next) => {
   catch (error) {
         next(error)
     }
-} else {
-    return next (errorHandler(401,'You can only get your own listings'))
-}
+
 }  
