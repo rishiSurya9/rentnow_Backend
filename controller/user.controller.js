@@ -52,3 +52,14 @@ export const DeleteUser = async (req, res, next) =>     {
         next(error)
     }
 }
+
+export const getUserListing = async (req, res, next) => {
+    try {
+        const userListing = await Listing.find({userRef:req.user.id})
+        res.status(200).json(userListing)
+    }
+  catch (error) {
+        next(error)
+    }
+
+}  
