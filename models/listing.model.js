@@ -48,9 +48,9 @@ const listingSchema = mongoose.Schema({
         type: Array,
         required: true,
     },
-    useRef:{
+    userRef:{
         type:String,
-        default:"hi"
+        required: true,
     }
     
    
