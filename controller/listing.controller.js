@@ -59,3 +59,48 @@ export const getListing = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getListings = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit)||9;
+    const startIndex = parseInt(req.query.startIndex)||0;
+    let offer = req.query.offer;
+    if(offer === 'undedified' || offer === 'false'){
+      offer = {$in:[false,true]};
+    }
+    let furnished = req.query.furnished;
+    if(furnished === 'undedified' || furnished === 'false'){
+      furnished = {$in:[false,true]};
+    }
+    let parking = req.query.parking;
+    if(parking === 'undedified' || parking === 'false'){
+      parking = {$in:[false,true]};
+    }
+    let type = req.query.type;
+    if(type === 'undedified' || type === 'all'){
+      type = {$in:['sale','rent']};
+    }
+
+    const searchTerm = req.query.searchtern || '';
+    const sort = req.query.sort || 'createdAt';
+    const order = req.query.order || 'desc';
+
+
+    const listings = await Listing.find({
+      title:{$regex:searchTerm, $options:'i'},
+      offer,
+      furnished,
+      parking,
+      type,
+    }).sort({[sort]:order}).limit(limit).skip(startIndex);
+
+    if(!listings){
+      return next(errorHandler(404,'No listing found'))
+    }
+    res.status(200).json(listings);
+
+  } catch (error) {
+    next(error);
+    9766721153
+  }
+}
