@@ -44,17 +44,42 @@ export const updateListing = async (req, res, next) => {
   }
 };
 
+
+
+
 export const getListing = async (req, res, next) => {
+
+//   try {
+//     const listing = await Listing.findById(req.params.id);
+//     if (!listing) {
+//       return next(errorHandler(404, 'Listing not found'));
+//     }
+//     res.status(200).json(listing);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
   try {
-    const listing = await Listing.findById(req.params.id);
-    if (!listing) {
-      return next(errorHandler(404, 'Listing not found'));
+    const {id} = req.params;
+    if(!ObjectId.isValid(id)){
+      return res.status(400).send('Invalid Id');
     }
+  
+    const listing = await Listing.findById(id);
+    if(!listing){
+      return res.status(400).send('Listing not found');
+    }
+  
     res.status(200).json(listing);
   } catch (error) {
     next(error);
   }
+
 };
+
+
+
 
 export const getListings = async (req, res, next) => {
 
@@ -104,7 +129,7 @@ export const getListings = async (req, res, next) => {
 
 
     res.status(200).json(listings);
-    
+
   } catch (error) {
     next(error);
    
