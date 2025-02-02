@@ -74,6 +74,27 @@ export const getListing = async (req, res, next) => {
     res.status(200).json(listing);
   } catch (error) {
     next(error);
+  } try {
+    const { id } = req.params;
+
+    // Validate if the id is a valid MongoDB ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: 'Invalid listing ID' });
+    }
+
+    // Fetch the listing from the database
+    const listing = await Listing.findById(id);
+
+    // Check if the listing exists
+    if (!listing) {
+      return res.status(404).json({ message: 'Listing not found' });
+    }
+
+    // Return the listing
+    res.status(200).json(listing);
+  } catch (error) {
+    // Pass the error to the error-handling middleware
+    next(error);
   }
 
 };
