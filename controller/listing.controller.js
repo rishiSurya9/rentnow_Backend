@@ -134,7 +134,7 @@ export const getListings = async (req, res, next) => {
     const order = req.query.order || 'desc';
 
     const listings = await Listing.find({
-      title: { $regex: searchTerm, $options: 'i' },
+      name: { $regex: searchTerm, $options: 'i' },
       offer,
       furnished,
       parking,
@@ -144,10 +144,7 @@ export const getListings = async (req, res, next) => {
       .limit(limit)
       .skip(startIndex);
 
-    if (!listings) {
-      return next(errorHandler(404, 'No listing found'));
-    }
-
+    
 
     res.status(200).json(listings);
 
