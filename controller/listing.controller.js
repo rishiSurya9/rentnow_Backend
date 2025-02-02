@@ -57,7 +57,9 @@ export const getListing = async (req, res, next) => {
 };
 
 export const getListings = async (req, res, next) => {
+
   try {
+
     const limit = parseInt(req.query.limit) || 9;
     const startIndex = parseInt(req.query.startIndex) || 0;
 
@@ -100,10 +102,11 @@ export const getListings = async (req, res, next) => {
       return next(errorHandler(404, 'No listing found'));
     }
 
-    
+
     res.status(200).json(listings);
+    
   } catch (error) {
     next(error);
-    9766721153;
+   
   }
 };
