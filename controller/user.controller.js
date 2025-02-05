@@ -9,6 +9,16 @@ export const test = (req, res) => {
     })
 }
 
+export const getMail = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if(!user)return next(errorHandler(404,'User not found'));
+        const {email, ...rest} = user._doc;
+        res.status(200).json(email)
+    } catch (error) {
+        next(error)
+    }
+}
 
 export const updateUser = async (req, res, next) => {
 
