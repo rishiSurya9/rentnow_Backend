@@ -13,6 +13,7 @@ const port = process.env.PORT || 5000;
 
 // Allowed origins for CORS
 const allowedOrigins = [
+    'http://localhost:3000',              // Local frontend
     'https://rentnow-indol.vercel.app',   // Deployed frontend
     'https://script-assist-alpha.vercel.app/',
     
