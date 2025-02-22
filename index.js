@@ -12,7 +12,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Allowed origins for CORS
-const allowedOrigins = [           // Local frontend
+const allowedOrigins = [
     'https://rentnow-indol.vercel.app',   // Deployed frontend
     'https://script-assist-alpha.vercel.app/',
     
