@@ -21,7 +21,7 @@ const allowedOrigins = [
 
 // Configure CORS
 app.use(cors({
-    origin: allowedOrigins,
+    origin: 'https://rentnow-indol.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
