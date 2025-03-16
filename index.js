@@ -13,26 +13,32 @@ const port = process.env.PORT || 5000;
 
 // Allowed origins for CORS
 const allowedOrigins = [
-    'http://localhost:3000',              // Local frontend
-    'https://rentnow-indol.vercel.app',   // Deployed frontend
-    'https://script-assist-alpha.vercel.app/',
-    
+    'http://localhost:3000',
+    'https://rentnow-indol.vercel.app',
+    'https://script-assist-alpha.vercel.app'
 ];
 
-// Configure CORS
+// CORS Middleware
 app.use(cors({
-    origin: 'https://rentnow-indol.vercel.app',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
 }));
 
-// Set custom CORS headers
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin',  'https://rentnow-indol.vercel.app'); // Allow specific frontend origin
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow necessary methods
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow necessary headers
-    res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials
-    next();
+// Handle Preflight Requests (OPTIONS Method)
+app.options('*', (req, res) => {
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.sendStatus(200);
 });
 
 // Connect to MongoDB
