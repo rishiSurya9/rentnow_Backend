@@ -36,7 +36,7 @@ export const  login  = async (req,res,next) => {
             secure:  process.env.NODE_ENV === 'production', 
             httponly: true,
             sameSite: 'none', 
-            domain: '',}).status(200).json(rest);
+            domain: 'rentnow-backend.onrender.com',}).status(200).json(rest);
 
     }catch(err){
         next(err);
