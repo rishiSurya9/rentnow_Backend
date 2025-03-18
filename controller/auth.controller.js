@@ -33,11 +33,10 @@ export const  login  = async (req,res,next) => {
         const token = jwt.sign({id:valid_user._id},process.env.JWT_SECRET);
         const {password: pass, ...rest}= valid_user._doc;
         res.cookie('access_token', token, {
-            httpOnly: false, // ✅ Allow frontend JavaScript access (optional)
-            secure: true, // ✅ Required for cross-site cookies
-            sameSite: "None", // ✅ Allow cookie to be sent in cross-origin requests
-            domain: ".vercel.app", // ✅ Set for frontend domain (not backend)
-            path: "/", }).status(200).json(rest);
+            secure:  process.env.NODE_ENV === 'production', 
+            httponly: true,
+            sameSite: 'none', 
+            domain: '',}).status(200).json(rest);
 
     }catch(err){
         next(err);
