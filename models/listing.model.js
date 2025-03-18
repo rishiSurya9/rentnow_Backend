@@ -21,7 +21,6 @@ const listingSchema = mongoose.Schema({
     },
    propertyType:{
     type: String,
-    required: true,
    },
    BHK: {
     type: Number,
@@ -43,7 +42,7 @@ const listingSchema = mongoose.Schema({
     },
     type:{
         type: String,
-        required: true,
+        
     },
     offer:{
         type:Boolean,
