@@ -2,6 +2,7 @@ import mongoose  from "mongoose";
 
 const listingSchema = mongoose.Schema({
     name: {
+        
         type: String,
         required: true,
     },
